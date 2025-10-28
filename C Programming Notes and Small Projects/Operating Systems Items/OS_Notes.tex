@@ -1,0 +1,62 @@
+
+\documentclass[12pt]{article}
+\usepackage[notext]{stix}
+\usepackage{step}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{titling}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{parskip}
+
+
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\title{Operating Systems Notes}
+
+\author{SubmergedDuck}
+\date{\today}
+
+\begin{document}
+\begin{titlingpage}
+\maketitle 
+\end{titlingpage}
+
+\newpage
+
+\section{Page Tables {\hrule}}
+\vspace{-1.5em}
+
+{\bf Pages.} {Memory is split into pages of equal size. Inside one page,
+the offset tells "which byte within this page."} \par 
+
+\noindent
+{\bf Offset Bits.} {How many bits to count all bytes in one page.} \par  
+
+\setlength{\parindent}{15pt}  {\bf Eg.} {A 4KB page has $4096$ bytes. Since $4096 = 2^{12}$, the page offset uses 12 bits.} \par \vspace{1em}
+
+\noindent{\bf Virtual Page Number (VPN).} {Given a 32-bit virtual address and 4KB pages, there would be 20 bits left for the VPN. This implies that there are $2^{20}$ virtual pages if there are 20 VPN bits.}
+
+\setlength{\parindent}{0pt} 
+{\bf Page Table Entry (PTE).} {One record in the page table that maps a virtual page to a physical frame and bits like valid/present, R/W/X permissions, dirty, accessed, etc.}
+
+
+
+
+
+
+
+
+
+\vspace{10em}
+\begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+def hello_world():
+    print("Hello, LaTeX!")
+\end{lstlisting}
+
+
+
+\end{document}
