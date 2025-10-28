@@ -13,22 +13,27 @@
 // git fetch origin main: brings files from already created GitHub repo
 // git config --global user.signingkey [key ID]
 // git config --global commit.gpgsign true
+// git push -u origin main: push to main branch
 
 // --- GPG Keys --- // 
 // gpg --list-secret-keys --keyid-format=long: see your keys
 // gpg --full-generate-key: making a new GPG key
 // gpg --armor --export [KEY ID] 
 
-
+// --- Terminal --- // 
 // mv: move or rename file, args: [source] [dest]
 // cc: Clang Compiler
 // gcc: GNU Compiler 
 
-
+// --- C Programming: A Modern Approach --- // 
+// (1) Pre-processor reads the directives
+// (2) The compiler compiles your code to machine (object) code. 
+// (3) A linker links object code and other additional code together to create an executable. 
+// Additional Code: Eg. printf function from stdio.h
 
 #include <stdio.h> // The # is means it is a directive. 
 
 int main (){ 
-    printf("To play league or not to play league..."); 
+    printf("To play league or not to play league... \n"); 
     return 0; 
 }
