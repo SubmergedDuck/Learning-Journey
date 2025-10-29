@@ -10,6 +10,28 @@
 \usepackage{listings}
 \usepackage{titlesec}
 \usepackage{parskip}
+\usepackage[dvipsnames]{xcolor}
+\lstset{ 
+    language=C++, % choose the language of the code
+    basicstyle=\fontfamily{pcr}\selectfont\footnotesize\color{red},
+    keywordstyle=\color{red}\bfseries, % style for keywords
+    numbers=none, % where to put the line-numbers
+    numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+    backgroundcolor=\color{white},
+    showspaces=false, % show spaces adding particular underscores
+    showstringspaces=false, % underline spaces within strings
+    showtabs=false, % show tabs within strings adding particular underscores
+    frame=single, % adds a frame around the code
+    tabsize=2, % sets default tabsize to 2 spaces
+    rulesepcolor=\color{gray},
+    rulecolor=\color{black},
+    captionpos=b, % sets the caption-position to bottom
+    breaklines=true, % sets automatic line breaking
+    breakatwhitespace=false,
+    commentstyle=\color{teal}, 
+    emph={uint64_t},
+    emphstyle=\color{blue}, 
+}
 
 
 \renewcommand\maketitlehooka{\null\mbox{}\vfill}
@@ -36,27 +58,74 @@ the offset tells "which byte within this page."} \par
 \noindent
 {\bf Offset Bits.} {How many bits to count all bytes in one page.} \par  
 
-\setlength{\parindent}{15pt}  {\bf Eg.} {A 4KB page has $4096$ bytes. Since $4096 = 2^{12}$, the page offset uses 12 bits.} \par \vspace{1em}
+\begin{enumerate}
+    \item[]{\bf Eg.} {A 4KB page has $4096$ bytes. Since $4096 = 2^{12}$, the page offset uses 12 bits.} \par 
+\end{enumerate}
+\vspace{1em}
 
-\noindent{\bf Virtual Page Number (VPN).} {Given a 32-bit virtual address and 4KB pages, there would be 20 bits left for the VPN. This implies that there are $2^{20}$ virtual pages if there are 20 VPN bits.}
+\noindent{\bf Virtual Page Number (VPN).} {The index of a virtual page. These are the high bits of the virtual address.)} \par
+
+\begin{enumerate}
+    \item[]{\bf Eg.} {Given a 32-bit virtual address and 4KB pages, there would be 20 bits left for the VPN (cause 4KB $= 2^{12}$ bytes). This implies that there are $2^{20}$ virtual pages if there are 20 VPN bits.} \par 
+\end{enumerate}
+\vspace{1em}
 
 \setlength{\parindent}{0pt} 
-{\bf Page Table Entry (PTE).} {One record in the page table that maps a virtual page to a physical frame and bits like valid/present, R/W/X permissions, dirty, accessed, etc.}
+{\bf Page Table Entry (PTE).} {One record in the page table that maps a virtual page to a physical frame and bits like valid/present, R/W/X permissions, dirty, accessed, etc.} \par 
 
+{\bf Virtual Page.} {A fixed-size chunk (eg. 4KB) of a process's virtual address space.}
+\setlength{\parindent}{15pt} \par
 
+\begin{enumerate}
+    \item[]{\bf Eg.} {With 4KB pages, every virtual address splits into a virtual page number (which page) + offset (which byte inside that page)} \par
 
+    \item[]{\bf Eg 2.} {Let virtual address = 0x12345ABC. Then the offset would be 0xABC (low 12 bits) and the VPN would be 0x12345 given 4KB pages.} 
+\end{enumerate}
 
+\vspace{1em}
+\setlength{\parindent}{0pt} 
 
+{\bf Single-level Page Table.} {One big array indexed by the VPN; each slot is a PTE that says where that virtual page lives (which physical frame).} \par
 
+\begin{enumerate}
+    \item[]{\bf Eg.} {There are $2^{20}$ page table entries, each entry is 4 bytes. The total size of the single page table would be $2^{20} \times 4$ bytes.} \par
+\end{enumerate}
 
+\vspace{1em}
+
+{\bf Physical Frame.} {A 4KB chunck of RAM (or same size as page) where a virtual page's data lives when it's in memory.} 
+
+{\bf Physical Frame Number (PFN).} {The index of a 4KB physical frame in RAM. After page-table lookup, the PTE gives you the PFN plus status bits. Eg. Given 4KB pages, VA = [PFN | 12-bit Offset]}
+
+{\bf MiB.} {A mebibyte. 1 MiB $= 2^{20}$ bytes} 
+
+{\bf Page Directory Index (PDI).} {The first 10 bits of virtual address (VA). Selects which page table to use.} \par
+
+{\bf Page Table Index (PTI).} {The next 10 bits after PDI of VA. The Selects which PTE inside that page table.} \par
 
 
 \vspace{10em}
+{\bf Bit Shifting} \par
 \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
-def hello_world():
-    print("Hello, LaTeX!")
+#define PAGE_SHIFT 12 // 4KB Pages
+uint64_t physical_address = ((uint64_t)pfn << PAGE_SHIFT)|offset; 
+
 \end{lstlisting}
 
+{\bf Translation Lookaside Buffer (TLB).} {A tiny, very fast cache inside the MMU that stores recent virtual page number (VPN) to physical frame number translations (plus R/W/X/valid bits).} \par
+\begin{enumerate}
+        \item[]{\bf Hit.} {MMU find the mapping in the TLB so it can form the physical address without reading the page tables from memory. Memory Accesses Needed: 1.}
+        \item[]{\bf Miss.} {MMU (or OS) must walk the page tables in memory to find the PTE, then it can access the data. Memory Accesses Needed: 3. } 
+\end{enumerate}
 
+{\bf Memory Management Unit (MMU).} {The hardware between the CPU and RAM that translates virtual addresses to physical using TLB and page tables. Also enforces R/W/X permissions and raises page faults if needed and updates accessed/dirty bits.} \par
+
+{\bf Accessed Bit (A/R).} {Set by the hardware on any read or write to the page. OS uses it to tell which pages were recently used (eg. for replacement).}
+
+{\bf Dirty Bit (D/modified).} {Set on any write. If a dirty page is evicted, it must be written back to disk; if clean it can be dropped.}
+
+{\bf Dirty Page.} {A memory page that's been modified (written to) since it was loaded (its dirty bit is set.) If the OS evicts it, it must write it back to disk; a clean page (non-modified) can be dropped without writing.}
+
+{\bf Page Fault.} {The PTE says the page isn't in RAM (invalid/not present), thus trapping to the OS to bring the page in.}
 
 \end{document}
