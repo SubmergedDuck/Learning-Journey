@@ -31,6 +31,7 @@
 // mv: move or rename file, args: [source] [dest]
 // cc: Clang Compiler
 // gcc: GNU Compiler 
+// gcc -Wall -W -pedantic -ansi -std=c23 -o
 
 // --- C Programming: A Modern Approach --- // 
 // (1) Pre-processor reads the directives

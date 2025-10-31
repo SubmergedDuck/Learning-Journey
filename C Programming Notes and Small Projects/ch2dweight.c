@@ -1,8 +1,8 @@
-/****************************************
-* Name: ch2dweight.c
-* Purpose: Calculating dimensional weight for a shipping container. 
-* Author: SubmergedDuck 
-*****************************************/
+/***********************************************************************
+* Name: ch2dweight.c                                                   *
+* Purpose: Calculating dimensional weight for a shipping container.    *
+* Author: SubmergedDuck                                                *
+************************************************************************/
 
 // Shipping companies don't like boxes that are large but very light
 // Fees are based on volume instead of weight

@@ -12,6 +12,16 @@
 \usepackage{parskip}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
 \usetikzlibrary{chains, scopes}
 \tikzset{memory box/.style={
         draw, fill=#1, minimum width={width("Memory UVWXYZ")+6pt},
@@ -116,6 +126,12 @@
 
 {\bf Offset.} {Indicates which byte a virtual address is on a virtual page.}
 
+{\bf Page Table Entry (PTE).} {A 20-bit VPN implies there are $2^{20}$ address translations for each process. We need 4 bytes per PTE to hold the physical translation plus other stuff. So for a 32-bit address space there are $2^{20} * 4$ bytes = 4MB of memory needed for each page table.}
+
+    \begin{enumerate}
+        \item[] {\bf Note.} {So the number of page table entries is equal to the number of address translations. The number of address translations is related to how many bits a VPN has.}
+    \end{enumerate}
+
 
     
 \newpage
@@ -124,6 +140,8 @@
 
     \noindent
     {\bf Offset Bits.} {How many bits to count all bytes in one page.} \par  
+
+    {\bf Swap Offset.} {The index of the page-sized slot in the swap area (file/partion) where the whole page was written when it was swapped out.} \par
 
     \begin{enumerate}
         \item[]{\bf Eg.} {A 4KB page has $4096$ bytes. Since $4096 = 2^{12}$, the page offset uses 12 bits.} \par 
@@ -207,7 +225,86 @@ uint64_t physical_address = ((uint64_t)pfn << PAGE_SHIFT)|offset;
 
 \newpage
 
-\section{Page Tables {\hrule}}
+\section{Lecture 15/16: Page Replacement Algorithms {\hrule}}
 \vspace{-1.5em}
 
+{\bf Policy Decisions for Virtual Memory Management} \vspace{-0.5em} \par {There are three types of policies we need to know.}
+    \begin{enumerate}
+        \item[]{\bf Fetch Policy.} {Policies that we use to decide when to fetch a page.}
+        \item[]{\bf Placement Policy.} {Policies that we use to decide where to put the page.}
+        \item[]{\bf Replacement Policy.} {Policies that we use to decide what page to evict to make room.} 
+    \end{enumerate}
+
+\vspace{1em}
+
+{\bf Page Fetch Policies.} {There are two types of fetch policies.}
+    \begin{enumerate}
+        \item[1]{\bf Demand Paging.} {This is a when we only fetch a page when we actually reference it. }
+        \item[2]{\bf Prepaging.} {This is when we fetch a page, we will fetch a little bit more, so when the next page fault comes around the data/content that we need for that page is already there. This is so we don't have the issue of "stalling twice."} 
+    \end{enumerate}
+
+\vspace{1em}
+
+{\bf Page Placement Policies.} {Modern memory managemnent systems allow for any physical frames to hold any virtual page. This means that on most computers, any of the physical frames are equally good to hold any virtual page. This also means that memory management hardware can translate any virtual-to-physical mapping equally well. } 
+    \begin{enumerate}
+        \item[]{\bf Why would we prefer some virtual-to-physical over others?}
+        \vspace{-0.5em}
+        \begin{enumerate}
+            \item [1]{\bf NUMA Multiprocessors.} {NUMA stands for non-uniform memory access. When we have a NUMA processor, some memory locations results in faster memory access than others. Eg. Any processor can access entire memory, but local memory is faster. }
+            \item [2]{\bf Cache Performance.} {You want to pick physical frames that does not result in bad behaviour. Thus we have to choose physical pages to minimize cache conflicts.}
+        \end{enumerate}
+        \item[]{\bf Note.} {Placement policy will have a much smaller effect than fetch and replacement polciies if memory is limited.} 
+    \end{enumerate}
+
+\vspace{1em}
+{\bf Page Replacement Policies.} {The main goal of a replacement algorithm is to reduce the {\bf fault rate} (how frequent a page fault occurs). We want to evict pages that will never be used again in the future, but this is hard to do cause we don't know the future, so we will pick to evict the page that won't be used for the longest period of time. }
+    \begin{enumerate}
+        \item[]{\bf How are replacement algorithms evaluated?}
+        \vspace{-0.5em}
+        \begin{enumerate}
+            \item[] We take an input reference string (a list of addresses in the order that a program references them) and we count how many page faults occured, the lower the better.
+        
+        \end{enumerate}
+        \item[]{\bf What does it mean to reference an address? }
+        \vspace{-0.5em}
+        \begin{enumerate}
+            \item[] It means to use a variable or pointer to locate and access data in memory. 
+        \end{enumerate}
+
+    \end{enumerate}
+Timestamp: 5:19
+
+\section{Lecture 12: Paging and Address Translation {\hrule}} 
+
+{\bf Compaction.} {The idea that we have something called a physical memory (RAM) and as we are assigning physical memory to processes, we can end up with holes inbetween allocations of memory. The purpose of compaction is to eliminate the small fragments in physical memory by relocating allocated space by consolidating them so we get 1 big free space in physical memory that we can use for other processes.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {Compaction is not possible with the C memory allocation library. The C library uses something called dynamic partitioning. It's not possible because once malloc() returns an address to you, that address would be out of reach by the malloc library––this means that the malloc library cannot change the address that was returned and update it to something else.}
+        \item[] {\bf Dynamic Partitioning.} {Opposite of fixed partitions. \href{run:https://www.youtube.com/watch?v=bQVARMOIwFg}{Video} }
+    \end{enumerate}
+
+{\bf Dynamic Relocation.} {Also known as execution-time binding of addresses. The purpose of this is to be able to do {\bf swapping} and {\bf compaction} at runtime. Dynamic relocation allows us to take a virtual address that the user process is using as its executing instructions and translating them to physical addresses.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {This allows the OS to change the mapping between virtual and physical addresses whenever it wants––thus able to move data from one region of memory to another region of memory.}
+        \item[] {\bf Regarding Compaction.} {We are able to change some of the virtual-to-physical address translations.}
+        \item[] {\bf What's the minimum requirements to relocate fixed or dynamic partitions?} 
+        \vspace{-0.5em}
+        \begin{enumerate}
+            \item[] All memory used by the process must be contiguous, which means no holes. 
+        \end{enumerate}
+    \end{enumerate}
+
+{\bf Relocation Registers.} {What some CPU architectures, commonly, the older ones have. The basic idea is to translate physical addresses by doing an add opertation to the virtual address to get the corressponding physical address. }
+    \begin{enumerate}
+        \item[]{\bf Eg. Translating Addresses w/ Reloc. Reg.} {Let's say base address is 10, and we want to translate the virtual address 5. Then the physical address you get is 10+5 = 15. }
+        \item[]{\bf Note.} {We also have to check that the base address is within the limits of a process's address space to protect overwriting memory that we lost to other processes. Sometimes the generated physical address does not even exist, eg. -200 physical address. }
+        \item[]{\bf Base and Limit Reg.} {On CPUs that have a "base" and "limit" registers, the MMU uses these registers to store the base address and also a limit. These registers are updated whenever we do a kernel level context switch.}
+        \begin{enumerate}
+            \item[1]{\bf Base.} {When we restore registers for the next process, we load the {\bf base} register with the starting address of the physical address of that process.}
+            \item[2]{\bf Limit.} {Limit register is set to the last logical address of that process. Purpose is to cap what range of physical addresses are valid.}
+            \item[3]{\bf Load/Store.} {When we execute any memory reference instruction like load and store, the hardware will add the base address to the logical address (limit)} 
+        \end{enumerate}
+        \item[]{\bf Kernel-Level Context Switch.} {When we switch from one process to another.} 
+        \item[]{\bf Logical Address.} {It's the same thing as a virtual address.} 
+    \end{enumerate}
+Timestamp: 8:22
 \end{document}
