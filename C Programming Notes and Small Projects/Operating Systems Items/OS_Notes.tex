@@ -13,6 +13,10 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{{LaTex\space Images/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -225,7 +229,7 @@ uint64_t physical_address = ((uint64_t)pfn << PAGE_SHIFT)|offset;
 
 \newpage
 
-\section{Lecture 15/16: Page Replacement Algorithms {\hrule}}
+\section{Lecture 14/15: Page Replacement Algorithms {\hrule}}
 \vspace{-1.5em}
 
 {\bf Policy Decisions for Virtual Memory Management} \vspace{-0.5em} \par {There are three types of policies we need to know.}
@@ -274,13 +278,36 @@ uint64_t physical_address = ((uint64_t)pfn << PAGE_SHIFT)|offset;
     \end{enumerate}
 Timestamp: 5:19
 
+{\bf Belady's Algorithm (OPT/MIN).} {This is known as the optimal {\bf page replacement} algorithm, as it has the lowest fault rate for any page reference string. The idea is to replace the page that will not be used for the longest period of time, but the {\bf problem} is we have to know the future perfectly.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {This algorithm is not intended as a practical algorithm that we can use. We only use it as a "yardstick" to compare other algorithms.}
+        \item[]{\bf Yardstick.} {If Belady's/optimal is not much better, then the algorithm is pretty good, else the algorithm needs some work. Random replacement is often the lower bound (cause it's least optimal).} 
+        \item[]{\bf Modelling Belady's Algorithm}
+        \begin{enumerate}
+            \item[1]{\bf Cold Miss.} {This is the very first access to a page, and it is unavoidable. No page replacement algorithms can reduce the number of cold misses.}
+            \item[2]{\bf Capacity Miss.} {This is a miss cause by the page replacement policy due to the limited size of memory.}  
+        \end{enumerate} 
+    \end{enumerate}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{BeladysAlgorithm} 
+  % \caption{An example image}
+  % \label{fig:example}
+\end{figure}
+
+Timestamp: 11:38
+
+\newpage
 \section{Lecture 12: Paging and Address Translation {\hrule}} 
+
+\vspace{-1.5em}
 
 {\bf Compaction.} {The idea that we have something called a physical memory (RAM) and as we are assigning physical memory to processes, we can end up with holes inbetween allocations of memory. The purpose of compaction is to eliminate the small fragments in physical memory by relocating allocated space by consolidating them so we get 1 big free space in physical memory that we can use for other processes.}
     \begin{enumerate}
         \item[]{\bf Note.} {Compaction is not possible with the C memory allocation library. The C library uses something called dynamic partitioning. It's not possible because once malloc() returns an address to you, that address would be out of reach by the malloc library––this means that the malloc library cannot change the address that was returned and update it to something else.}
         \item[] {\bf Dynamic Partitioning.} {Opposite of fixed partitions. \href{run:https://www.youtube.com/watch?v=bQVARMOIwFg}{Video} }
     \end{enumerate}
+\vspace{1em}
 
 {\bf Dynamic Relocation.} {Also known as execution-time binding of addresses. The purpose of this is to be able to do {\bf swapping} and {\bf compaction} at runtime. Dynamic relocation allows us to take a virtual address that the user process is using as its executing instructions and translating them to physical addresses.}
     \begin{enumerate}
@@ -292,6 +319,7 @@ Timestamp: 5:19
             \item[] All memory used by the process must be contiguous, which means no holes. 
         \end{enumerate}
     \end{enumerate}
+\vspace{1em}
 
 {\bf Relocation Registers.} {What some CPU architectures, commonly, the older ones have. The basic idea is to translate physical addresses by doing an add opertation to the virtual address to get the corressponding physical address. }
     \begin{enumerate}
@@ -300,11 +328,96 @@ Timestamp: 5:19
         \item[]{\bf Base and Limit Reg.} {On CPUs that have a "base" and "limit" registers, the MMU uses these registers to store the base address and also a limit. These registers are updated whenever we do a kernel level context switch.}
         \begin{enumerate}
             \item[1]{\bf Base.} {When we restore registers for the next process, we load the {\bf base} register with the starting address of the physical address of that process.}
-            \item[2]{\bf Limit.} {Limit register is set to the last logical address of that process. Purpose is to cap what range of physical addresses are valid.}
-            \item[3]{\bf Load/Store.} {When we execute any memory reference instruction like load and store, the hardware will add the base address to the logical address (limit)} 
+            \item[2]{\bf Limit.} {Limit register is set to the last logical (virtual) address of that process. Purpose is to cap what range of physical addresses are valid.}
+            \item[3]{\bf Load/Store.} {When we execute any memory reference instruction like load and store, the hardware will add the base address to the logical address... tbc} 
         \end{enumerate}
         \item[]{\bf Kernel-Level Context Switch.} {When we switch from one process to another.} 
         \item[]{\bf Logical Address.} {It's the same thing as a virtual address.} 
     \end{enumerate}
 Timestamp: 8:22
+
+\section{Lecture 15/16: Advanced VM Functionalities {\hrule}} 
+\vspace{-1.5em}
+
+\section{Lecture 11: Memory Management {\hrule}} 
+\vspace{-1.5em}
+
+{\bf Memory Management Unit (MMU).} {Memory system must see physical (real) addresses to fetch data or instruction. The MMU is where translation for virtual to physical addresses occur. For every virtual address, physical memory must be allocated. }
+    \begin{enumerate}
+        \item[]{\bf Note.} {We want to minimize wasted memory. We don't want to allocate physical memory for unused memory in the virtual address space of a process. Eg. Wasted memory is like a hello world program where there's so much space inbetween the heap and stack that's unused :( }
+    \end{enumerate}
+
+{\bf Memory Management Goals.}
+    \begin{enumerate}
+        \item[1] {\bf Virtualization.} {Allow for virtualization of memory, the OS must figure out how to share the main physical real memory.}
+        \item[2] {\bf Busy CPU.} {We want to support enough active processes to keep our CPU busy.}
+        \item[3] {\bf Memory Efficiency.} {We want to minimize wasted memory.}
+        \item[4] {\bf Overhead.} {We want to minimize memory management overhead, which just means to minimize wasted CPU/memory. We want our data structure to track physical memory usage to be as small and as fast as possible.} 
+    \end{enumerate}
+
+{\bf The 5 Basic Requirements to Support User Processes}
+    \begin{enumerate}
+        \item[1]{\bf Relocation.}
+        \item[2]{\bf Protection.} 
+    \end{enumerate}
+
+Timestamp: 9:18
+
+\newpage
+\section{Lecture 9: Scheduling {\hrule}} 
+\vspace{-1.5em}
+
+{\bf Process Scheduling.} {The allocation of processors (CPU) to processes/threads overtime.}
+    \begin{enumerate}
+        \item[] {\bf Note.} {This is the key to multiprogramming: can increase CPU utlization and system throughput by overlapping I/O and computation and make progress on multiple tasks concurrently. (Even on a single-core)}
+        \item[] {\bf Throughput.} {The amount of work/items/material passed/done by a system/CPU/process.}
+    \end{enumerate}
+Timestamp: 5:05 
+
+\section{Lecture 13/14: Translation Lookaside Buffer (TLB) {\hrule}} 
+\vspace{-1.5em}
+
+\newpage
+\section{Lecture 8: Concurrency Bugs {\hrule}} 
+\vspace{-1.5em}
+{\bf The Three Common Concurrency Bugs.}
+    \begin{enumerate}
+        \item[1]{\bf Atomicity Violation.} {A bug caused by a lack of mutual exclusion inside the critical section. It happens cause the "desired serializability among multiple memory accesses is violated (eg. a code region should be atomic, but is not). Harder to find cause it does not cause a crash or hang. }
+        \begin{enumerate}
+            \item[]{\bf Eg.} {Data in your application starts to corrupt slowly.}
+        \end{enumerate}
+        \item[2]{\bf Order Violation.} {A bug caused by incorrect ordering of operations. Also harder to find because of the same reasons for atomicity violation bugs. Also data starts to corrupt slowly too.}
+        \item[3]{\bf Deadlock.} {How to spot: All of the threads would just stop working, when we gdb and take a look, all the threads are sleeping and waiting for some event to happen, but nothing happens.}
+        \begin{enumerate}
+            \item[]{\bf Eg.} {Your entire website or application just freezes. }
+        \end{enumerate}
+    \end{enumerate}
+\vspace{1em}
+
+{\bf Serializability.} {This is a correctness guarantee that the execution of concurrent operations would be equivalent to some sequential execution of the same operations.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {Basically the guarantee that mutual exclusion provides.}
+        \item[]{\bf Eg.} {$T_A$ executes instructions $a_1, a_2, ..., a_n$ to modify shared data. These instructions are atomic. $T_B$ executes $b_1, b_2, ..., b_n$ to modify the same shared data. The outcome of running $T_A$ and $T_B$ can only be } $a_1, a_2, ..., a_n, b_1, b_2, ..., b_n$ or the otherway around ($T_B$ first then $T_A$).
+    \end{enumerate}
+\vspace{1em}
+
+{\bf Atomicity Violation: Buggy Code [MySQL]}
+    \begin{lstlisting}[language=SQL, numbers=left, basicstyle=\ttfamily]
+        Thread 1::
+        -- Check if thd.proc_info is null
+        if (thd->proc_info) {
+            -- If not null, write into thd.proc_info
+            fputs(thd->proc_info, ...);
+        }
+        
+        Thread 2::
+        -- Set thd.proc_info to null
+        thd->proc_info = NULL;
+    \end{lstlisting}
+    \begin{enumerate}
+        \item[1]{\bf What's wrong with this code?} {An interleaving can happen, creating an atomicity violation. Line 3 -> Line 10 -> Crashed Line 5 (cause we can't pass null pointer) is the atomicity violation.}
+        \item[2]{\bf How can we fix it?} {Using the same atomic lock() and unlock() on both critical sections.}
+    \end{enumerate}
+
+Timestamp: 13:35
 \end{document}

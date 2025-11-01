@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.10.11)  30 OCT 2025 22:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.10.11)  1 NOV 2025 12:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -593,7 +593,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip59
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+Package hyperref Info: Option `colorlinks' set `true' on input line 27.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarychains.code.tex
 File: tikzlibrarychains.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
@@ -608,9 +608,9 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `T1/STEP-TLF/regular/n' aliased to
-(Font)              `T1/STEP-TLF/m/n' on input line 71.
+(Font)              `T1/STEP-TLF/m/n' on input line 75.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 71.
+(Font)              scaled to size 12.0pt on input line 75.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count327
@@ -618,40 +618,40 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (./OS_Notes.aux)
 \openout1 = `OS_Notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 71.
-LaTeX Font Info:    Trying to load font information for LS1+stix on input line 71.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 75.
+LaTeX Font Info:    Trying to load font information for LS1+stix on input line 75.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls1stix.fd
 File: ls1stix.fd 2015/04/17 v1.1.2-latex STIX LS1 font definitions
 )
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 71.
-LaTeX Font Info:    Trying to load font information for LS2+stix on input line 71.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 75.
+LaTeX Font Info:    Trying to load font information for LS2+stix on input line 75.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls2stix.fd
 File: ls2stix.fd 2015/04/17 v1.1.2-latex STIX LS2 font definitions
 )
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 \c@mv@tabular=\count328
 \c@mv@boldtabular=\count329
-LaTeX Info: Command `\dddot' is already robust on input line 71.
-LaTeX Info: Command `\ddddot' is already robust on input line 71.
+LaTeX Info: Command `\dddot' is already robust on input line 75.
+LaTeX Info: Command `\ddddot' is already robust on input line 75.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -707,52 +707,52 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 71.
+Package hyperref Info: Link coloring ON on input line 75.
  (./OS_Notes.out) (./OS_Notes.out)
 \@outlinefile=\write4
 \openout4 = `OS_Notes.out'.
 
 LaTeX Font Info:    Font shape `T1/STEP-TLF/regular/n' aliased to
-(Font)              `T1/STEP-TLF/m/n' on input line 74.
+(Font)              `T1/STEP-TLF/m/n' on input line 78.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 74.
+(Font)              scaled to size 20.74pt on input line 78.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/regular/n' aliased to
-(Font)              `T1/STEP-TLF/m/n' on input line 74.
+(Font)              `T1/STEP-TLF/m/n' on input line 78.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 74.
-LaTeX Font Info:    Trying to load font information for LS1+stixscr on input line 74.
+(Font)              scaled to size 14.4pt on input line 78.
+LaTeX Font Info:    Trying to load font information for LS1+stixscr on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls1stixscr.fd
 File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS2+stixex on input line 74.
+LaTeX Font Info:    Trying to load font information for LS2+stixex on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls2stixex.fd
 File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS1+stixfrak on input line 74.
+LaTeX Font Info:    Trying to load font information for LS1+stixfrak on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls1stixfrak.fd
 File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS1+stixbb on input line 74.
+LaTeX Font Info:    Trying to load font information for LS1+stixbb on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls1stixbb.fd
 File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS2+stixcal on input line 74.
+LaTeX Font Info:    Trying to load font information for LS2+stixcal on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls2stixcal.fd
 File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS1+stixsf on input line 74.
+LaTeX Font Info:    Trying to load font information for LS1+stixsf on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls1stixsf.fd
 File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
 )
-LaTeX Font Info:    Trying to load font information for LS2+stixtt on input line 74.
+LaTeX Font Info:    Trying to load font information for LS2+stixtt on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/stix/ls2stixtt.fd
 File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
  (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -761,84 +761,123 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/step/a_euweyh.enc}]
 LaTeX Font Info:    Font shape `T1/STEP-TLF/regular/n' aliased to
-(Font)              `T1/STEP-TLF/m/n' on input line 78.
+(Font)              `T1/STEP-TLF/m/n' on input line 82.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 78.
+(Font)              scaled to size 17.28pt on input line 82.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/bold/n' aliased to
-(Font)              `T1/STEP-TLF/b/n' on input line 78.
+(Font)              `T1/STEP-TLF/b/n' on input line 82.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 78.
+(Font)              scaled to size 17.28pt on input line 82.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 78.
+(hyperref)                removing `\hrule' on input line 82.
 
 LaTeX Font Info:    Font shape `T1/STEP-TLF/bold/n' aliased to
-(Font)              `T1/STEP-TLF/b/n' on input line 81.
+(Font)              `T1/STEP-TLF/b/n' on input line 85.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 81.
+(Font)              scaled to size 12.0pt on input line 85.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/regular/n' aliased to
-(Font)              `T1/STEP-TLF/m/n' on input line 102.
+(Font)              `T1/STEP-TLF/m/n' on input line 106.
 LaTeX Font Info:    Font shape `T1/STEP-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 102.
+(Font)              scaled to size 6.0pt on input line 106.
 
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.133     \end{enumerate}
+l.137     \end{enumerate}
                           [1{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 
 [2]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 138.
+(hyperref)                removing `\hrule' on input line 142.
 
 
 
 [3]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 204.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 208.
 
 
 [4]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 228.
+(hyperref)                removing `\hrule' on input line 232.
 
 
 
 [5]
+<LaTex Images/BeladysAlgorithm.png, id=76, 537.00626pt x 281.05pt>
+File: LaTex Images/BeladysAlgorithm.png Graphic file (type png)
+<use LaTex Images/BeladysAlgorithm.png>
+Package pdftex.def Info: LaTex Images/BeladysAlgorithm.png  used on input line 293.
+(pdftex.def)             Requested size: 354.02342pt x 185.28343pt.
+
+
+[6 <./LaTex Images/BeladysAlgorithm.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 277.
+(hyperref)                removing `\hrule' on input line 301.
 
 
 
-[6]
+[7]
 
-[7] (./OS_Notes.aux)
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 339.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 342.
+
+
+
+[8]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 367.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 377.
+
+
+
+[9]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 381.
+
+(/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+
+[10]
+
+[11] (./OS_Notes.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `OS_Notes.out' has not changed.
-(rerunfilecheck)             Checksum: 767980019AF1C19AFEFACFAD70F6326D;843.
+(rerunfilecheck)             Checksum: F85AF7EFE36A520FE44A578B82DAA2C5;1995.
  ) 
 Here is how much of TeX's memory you used:
- 26302 strings out of 473190
- 466792 string characters out of 5704334
- 1006045 words of memory out of 5000000
- 49110 multiletter control sequences out of 15000+600000
+ 26581 strings out of 473190
+ 470448 string characters out of 5704334
+ 1042010 words of memory out of 5000000
+ 49367 multiletter control sequences out of 15000+600000
  619457 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,6n,107p,1320b,1303s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Bold.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Regular.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathsf.pfb>
-Output written on OS_Notes.pdf (8 pages, 147695 bytes).
+ 102i,6n,107p,1320b,1417s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Bold.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Regular.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathit.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathsf.pfb>
+Output written on OS_Notes.pdf (12 pages, 212937 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 160 PDF objects out of 1000 (max. 8388607)
+ 128 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 

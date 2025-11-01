@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1761877174.05982 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1761877174.87078 0
-  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1761877173.89065 17348 7e47a4954fd8620c46f52a32e5d77e08 ""
+["pdflatex"] 1762015423.65933 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1762015424.50711 0
+  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1762015423.48992 23654 9cd23b29fa985ce1a5d531daf141b5bb ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1741388039 2971 def0b6c1f0b107b3b936def894055589 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/step/a_euweyh.enc" 1741388039 2876 75b43bf7e4abc99875d81296a54eb916 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/fontname/texfonts.map" 1741388039 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -32,6 +32,7 @@
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb" 1741388039 167085 68de377d2744a68a88fa40a1f610615a ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Bold.pfb" 1741388039 190107 23ffffe78fe4f2c3c196a4b868daf048 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Regular.pfb" 1741388039 371265 d157a4dff72fe024ba6db0bde0cafc29 ""
+  "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathit.pfb" 1741388039 41474 772656494141d29334d3e80c9a859c10 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb" 1741388039 40662 35fc2ef7e5426524c472184c87cb4d57 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathsf.pfb" 1741388039 41655 e7591451a427b4270d35622721b08f6a ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/vf/public/step/STEP-Bold-tlf-t1.vf" 1741388039 1724 2bfdcd317a6b2e52e8636637f7b7526e ""
@@ -186,9 +187,10 @@
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1741388039 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/web2c/texmf.cnf" 1741388039 42151 79f67285bdd95beca4d137b380b4b9e5 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1741388039 3346131 6b13676e233c26f10957e49b174b554b ""
-  "OS_Notes.aux" 1761877174.77784 710 0e3d2bbcbcbc59841beab8d6e2cbfdcf "pdflatex"
-  "OS_Notes.out" 1761877174.77868 843 767980019af1c19afefacfad70f6326d "pdflatex"
-  "OS_Notes.tex" 1761877173.89065 17348 7e47a4954fd8620c46f52a32e5d77e08 ""
+  "LaTex Images/BeladysAlgorithm.png" 1762014911.89048 59228 2aa4018bf31aeb3c6f65d336dea20a32 ""
+  "OS_Notes.aux" 1762015424.4095 1415 9a88d5719d0ec30c37042f7f1180a5f3 "pdflatex"
+  "OS_Notes.out" 1762015424.41024 1995 f85af7efe36a520fe44a578b82daa2c5 "pdflatex"
+  "OS_Notes.tex" 1762015423.48992 23654 9cd23b29fa985ce1a5d531daf141b5bb ""
   (generated)
   "OS_Notes.aux"
   "OS_Notes.log"
