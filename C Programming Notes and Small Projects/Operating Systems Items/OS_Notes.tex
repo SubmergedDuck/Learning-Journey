@@ -321,19 +321,49 @@ Timestamp: 11:38
 
 {\bf Least Recently Used (LRU)} {The idea is that we can't predict the future, but we can guess based on passed experience. We evict the least recently used page.}
     \begin{enumerate}
-        \item[]{\bf Pros.} {Any program with high temporal locality will work well with this algorithm. Eg. code pages or stack pages are used more frequently}
-        \item[]{\bf Cons.} {A program with poor temporal locality will not work well with this algorithm. Eg. A program w/ repeated sequential array access larger than avaialable memory. Also this is not easy to implement in reality.}
+        \item[]{\bf Pros.} {This does not suffer from Belady's anomaly. Any program with high temporal locality will work well with this algorithm. Eg. code pages or stack pages are used more frequently}
+        \item[]{\bf Cons.} {Vulnerable to scanning reference patterns. A program with poor temporal locality will not work well with this algorithm. Eg. A program w/ repeated sequential array access larger than avaialable memory. Also this is not easy to implement in reality.}
     \end{enumerate}
 
 {\bf Temporal Locality.} {This refers to the same page/address being accessed frequently.}
 
 {\bf Implementing Exact LRU} {Exact means if we were to implement this on a real computer.}
     \begin{enumerate}
-        \item[]{\bf Option 1.} {Have a timestamp so every time we reference the memory, we update the timestamp. We then evict pages with the oldest timestamp, but we'll also have to go through each page in to find one with the oldest timestamp (Problem:O(n)). We'll need to make the page table entry (PTE) large enough to hold a meaningful timestamp. This may double the size of our page tables and TLBs.}
-        \item[]{\bf Option 2.} {}
+        \item[]{\bf Option 1.} {Have a timestamp so every time we reference the memory, we update the timestamp. We then evict pages with the oldest timestamp, but we'll also have to go through each page in to find one with the oldest timestamp ({\bf Problem:} $\mathcal{O}(n) +$ larger space requirement). We'll need to make the page table entry (PTE) large enough to hold a meaningful timestamp. This may double the size of our page tables and TLBs.}
+        \item[]{\bf Option 2.} {Keep pages in a queue. On reference, move the page to the front of the queue. On eviction, replace the page at the back of the queue. ({\bf Problem:} Need costly operation to manipulate queue on every single memory reference. This requires a lot of hardware support, unless we want to fault into the OS the manipulate the queue. There's way too much overhead to figure out how to manipulate a queue on the CPU, no common CPU architectures have this support.)}
+        \item[]{\bf Takeaway Note.} {Implementing exact LRU algorithm is not possible with the hardware support that we currently have.} 
+        \item[]{\bf Regarding FIFO.} {You only have to update the queue wait you bring a page or evict, instead of on every single memory access (that's why it's possible and easy to implement). While with an LRU, you have to update the queue everytime you access memory.}
     \end{enumerate}
 
 Timestamp: 25:10
+
+{\bf Stack-Based Algorithms} {Algorithms that does not have Belady's Anomaly.}
+    \begin{enumerate}
+        \item[]{\bf Eg.} {Least Recently Used (LRU)}
+    \end{enumerate}
+
+{\bf Scanning Reference Patterns.} {Eg. Iterating through a very large array.}
+
+{\bf Comparing Replacement Policies.} {Follows the 80/20 "workload" rule. 80\% of memory accesses are made to 20\% of the "hot" pages (hit). The remaining 20\% of references are made to the remaining 80\% of the pages ("cold" pages).}
+    \begin{enumerate}
+        \item[]{\bf Notes on the 80-20 Diagram.} {OPT is Belady's alorithm. It appears that the FIFO algorithm appears to be just as bad as the random algorith. The LRU algorithm is better than a random page replacement policy depending on the locality of the workload.}
+        \item[]{\bf Notes on the Looping-Sequential Diagram.} {Refers to things like iterating through an array. LRU and FIFO performs worse than RAND and OPT. For both LRU and FIFO, if the array size is bigger than the amount of memory, the hit rate goes to 0.} 
+    \end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{80-20Workload}
+  \caption{80-20 Workload Diagram}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{Looping-SequentialWorkload}
+  \caption{Looping-Sequential Workload Diagram} 
+\end{figure}
+
+\vspace{9em}
+Timestamp: 35:34/48:15
 
 
 \newpage
@@ -575,4 +605,55 @@ Timestamp 6:37
     \end{enumerate}
 
 Timestamp: 13:35
+
+\newpage
+\section{Lecture 13/14: Page Table Design {\hrule}} 
+\vspace{-1.5em}
+
+{\bf Paged Address Translation}
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+        page_number = vaddr / page_size;
+        page_offset = vaddr % page_size;
+        frame_number = page_table.translate(page_number);
+        paddr = frame_number * page_size + page_offset;
+    \end{lstlisting}
+
+{\bf Example of Address Translation.} {Suppose addresses are 16 bits, pages are 1024 bytes (1KB page size).}
+    \begin{enumerate}
+        \item[]{\bf Offset.}{ The offset will be 10 bits since each page has $2^{10}$ bytes.}
+        \item[]{\bf Page Number.} {The page number will be $16 - 10 = 6$ bits.} 
+        \item[]{\bf Maximum number of pages.} {$2^6 = 64$}
+        \item[]{\bf Size of the virtual address.} {$2^{16}= 65,536 = 64$KB} 
+        \item[]{\bf Note.} {Every single byte of a page needs an address.}  
+    \end{enumerate}
+\vspace{1em}
+{\bf Example of Address Translation in Code.} {Using bit-wise operators. Given 0x31DE virtual address, 1KB page size.}
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+        // Extract Page Number
+        VPN = vaddr >> 10; // Same as vaddr / 1024 but faster
+
+        // Get Frame Number From PageTable
+        PFN = process->page_table[VPN];
+
+        // Combine Frame Number w/ Page Offset
+        offset = vaddr & 0x3FF; // Same as vaddr % 1024
+        paddr = (frame << 10) | offset; 
+    \end{lstlisting}
+
+{\bf Bit Mask.} {}
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+        // Get the bit Mask
+        page_mask = (1 << offset_bits) - 1;  
+    \end{lstlisting}
+
+Timestamp: 17:03
+
+
+\newpage
+\section{Lecture 8: Deadlock {\hrule}} 
+\vspace{-1.5em}
+
+
+
 \end{document}
+
