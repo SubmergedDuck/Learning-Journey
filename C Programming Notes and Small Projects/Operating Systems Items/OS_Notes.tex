@@ -445,11 +445,29 @@ Timestamp: 19:47
 
 {\bf The 5 Basic Requirements to Support User Processes}
     \begin{enumerate}
-        \item[1]{\bf Relocation.}
-        \item[2]{\bf Protection.} 
+        \item[1]{\bf Relocation.} {Relates to the idea of information hiding or encapsulation. The goal here is we don't want to burden application programmers with is going on underneath memory management. Long-term scheduler may {\bf swap} processes in and out of memory to relieve memory pressure. This is why we need address translation, so we can write our code into the virtual address space and translate it to the physical address space.}
+        \item[2]{\bf Protection.} {The OS needs to ensure that a process's memory is guarded from unwanted access by other processes, both intentional and accidental.}
+        \item[3]{\bf Sharing.} {Some processes may want parts of their virtual addresses to be shared and used by other processes. (Eg. The C Standard Library). We need to specify and control what sharing is allowed so a process couldn't corrupt a shared library forexample.}
+        \item[4]{\bf Logical Organization.} {This is about how a program uses memory space. To a machine, memory is just a 1-dimensional array of bytes, but to a programmer, we think about regions in memory (Eg. shared libraries, heap, text, stack, mapped files). } 
+        \item[5]{\bf Physical Organization.} {We have to consider the combination of main memory and external storage devices like SSDs/hardrives as a two-level hierarchy. The challenge with this requirement is that the CPU can only access data that are in main memory (RAM) or registers.} 
+    \end{enumerate}
+Timestamp: 9:18
+
+{\bf Swapping.} {When the OS is low on physical memory it may do something called swapping where the physical memory of a process can be written temporarily to disk to free up memory for other processes we use.}
+
+{\bf How does the OS meet the 5 requirements?} {Modern systems use virtual memory, a complicated technique requiring hardware and software support––based on a simpler technique: segmentation/paging.}
+
+{\bf Address Binding Problem.} {This refers to the translation of symbolic names (Eg. int y;) into the final physical memory location. When we invoke the exec() system call, we load the program binary into a process's virtual address space, and the exec() system call will settup the registers and other parts of the PCB so that the process can become ready to run.}
+
+{\bf When do we assign memory accesses to variables?}\
+    \begin{enumerate}
+        \item[]{\bf Option 1: Compile Time Binding.} {To do this, we need to know the information of the memory system that we want our program to run on because at compile time, we need to assign every variable that a process use to a fixed memory location. This is so when a process executes, it will use the exact physical memory locations. This is used in embedded systems, (Eg. Fridge). This is also a type of absolute code since the binary contains real addresses. {\bf Note.} No relocation is possible, meaning you can't run more than one instance of a program. }
+        \item[]{\bf Option 2: Load Time Binding} {Also known as {\bf static relocation}. In this option, the compiler translates symbolic addresses into relocatable addresses within a source file (compilation unit). } 
     \end{enumerate}
 
-Timestamp: 9:18
+{\bf Absolute Code.} {If we use absolute code, we can't run more than one instance of a program because a program will overwrite main memory. (Eg. can't run more than 1 calculator program in your desktop at a time.) You can load in multiple different programs though.}
+
+Timestamp 25:11
 
 \newpage
 \section{Lecture 9: Scheduling {\hrule}} 
