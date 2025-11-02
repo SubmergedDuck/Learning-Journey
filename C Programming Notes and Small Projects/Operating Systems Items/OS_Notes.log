@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.10.11)  1 NOV 2025 12:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.10.11)  1 NOV 2025 21:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -810,74 +810,110 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 [5]
-<LaTex Images/BeladysAlgorithm.png, id=76, 537.00626pt x 281.05pt>
+<LaTex Images/BeladysAlgorithm.png, id=80, 537.00626pt x 281.05pt>
 File: LaTex Images/BeladysAlgorithm.png Graphic file (type png)
 <use LaTex Images/BeladysAlgorithm.png>
 Package pdftex.def Info: LaTex Images/BeladysAlgorithm.png  used on input line 293.
 (pdftex.def)             Requested size: 354.02342pt x 185.28343pt.
+<LaTex Images/FIFOReplacement.png, id=82, 725.71124pt x 324.21124pt>
+File: LaTex Images/FIFOReplacement.png Graphic file (type png)
+<use LaTex Images/FIFOReplacement.png>
+Package pdftex.def Info: LaTex Images/FIFOReplacement.png  used on input line 308.
+(pdftex.def)             Requested size: 354.02342pt x 158.16241pt.
 
 
 [6 <./LaTex Images/BeladysAlgorithm.png>]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 301.
-
-
-
-[7]
+[7 <./LaTex Images/FIFOReplacement.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 339.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 342.
+(hyperref)                removing `\hrule' on input line 340.
 
 
 
 [8]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 367.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 377.
-
-
-
 [9]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hrule' on input line 381.
+(hyperref)                removing `\hrule' on input line 379.
+
+
+
+[10]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 400.
+
+
+
+[11]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 425.
+
+<LaTex Images/FCFSScheduling.png, id=111, 460.72125pt x 279.0425pt>
+File: LaTex Images/FCFSScheduling.png Graphic file (type png)
+<use LaTex Images/FCFSScheduling.png>
+Package pdftex.def Info: LaTex Images/FCFSScheduling.png  used on input line 459.
+(pdftex.def)             Requested size: 354.02342pt x 214.4163pt.
+
+
+[12]
+
+[13 <./LaTex Images/FCFSScheduling.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 475.
+
+
+
+[14]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 498.
+
+<LaTex Images/TLBAddressTranslation.png, id=126, 768.8725pt x 358.33875pt>
+File: LaTex Images/TLBAddressTranslation.png Graphic file (type png)
+<use LaTex Images/TLBAddressTranslation.png>
+Package pdftex.def Info: LaTex Images/TLBAddressTranslation.png  used on input line 510.
+(pdftex.def)             Requested size: 354.02342pt x 164.99638pt.
+
+
+[15 <./LaTex Images/TLBAddressTranslation.png>]
+
+[16]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hrule' on input line 536.
 
 (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
-[10]
+[17]
 
-[11] (./OS_Notes.aux)
+[18] (./OS_Notes.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `OS_Notes.out' has not changed.
-(rerunfilecheck)             Checksum: F85AF7EFE36A520FE44A578B82DAA2C5;1995.
+(rerunfilecheck)             Checksum: C32AED07543977A2884CBDE7061EB5DF;2220.
  ) 
 Here is how much of TeX's memory you used:
- 26581 strings out of 473190
- 470448 string characters out of 5704334
- 1042010 words of memory out of 5000000
- 49367 multiletter control sequences out of 15000+600000
+ 26632 strings out of 473190
+ 471930 string characters out of 5704334
+ 1042202 words of memory out of 5000000
+ 49410 multiletter control sequences out of 15000+600000
  619457 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,6n,107p,1320b,1417s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,7n,107p,1320b,1417s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Bold.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/step/STEP-Regular.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathit.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/stix/stix-mathsf.pfb>
-Output written on OS_Notes.pdf (12 pages, 212937 bytes).
+Output written on OS_Notes.pdf (19 pages, 459835 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 204 PDF objects out of 1000 (max. 8388607)
+ 159 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

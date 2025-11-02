@@ -425,6 +425,18 @@ INPUT ./LaTex Images/BeladysAlgorithm.png
 INPUT ./LaTex Images/BeladysAlgorithm.png
 INPUT ./LaTex Images/BeladysAlgorithm.png
 INPUT ./LaTex Images/BeladysAlgorithm.png
+INPUT ./LaTex Images/FIFOReplacement.png
+INPUT ./LaTex Images/FIFOReplacement.png
+INPUT ./LaTex Images/FIFOReplacement.png
+INPUT ./LaTex Images/FIFOReplacement.png
+INPUT ./LaTex Images/FCFSScheduling.png
+INPUT ./LaTex Images/FCFSScheduling.png
+INPUT ./LaTex Images/FCFSScheduling.png
+INPUT ./LaTex Images/FCFSScheduling.png
+INPUT ./LaTex Images/TLBAddressTranslation.png
+INPUT ./LaTex Images/TLBAddressTranslation.png
+INPUT ./LaTex Images/TLBAddressTranslation.png
+INPUT ./LaTex Images/TLBAddressTranslation.png
 INPUT /opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/listings/lstlang1.sty

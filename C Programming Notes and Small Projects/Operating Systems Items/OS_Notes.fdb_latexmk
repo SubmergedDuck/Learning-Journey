@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1762015423.65933 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1762015424.50711 0
-  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1762015423.48992 23654 9cd23b29fa985ce1a5d531daf141b5bb ""
+["pdflatex"] 1762046109.76449 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1762046111.32206 0
+  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1762046109.57873 35703 d35a904fcda942230c246f67c1bde8d5 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1741388039 2971 def0b6c1f0b107b3b936def894055589 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/step/a_euweyh.enc" 1741388039 2876 75b43bf7e4abc99875d81296a54eb916 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/fontname/texfonts.map" 1741388039 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -188,9 +188,12 @@
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/web2c/texmf.cnf" 1741388039 42151 79f67285bdd95beca4d137b380b4b9e5 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1741388039 3346131 6b13676e233c26f10957e49b174b554b ""
   "LaTex Images/BeladysAlgorithm.png" 1762014911.89048 59228 2aa4018bf31aeb3c6f65d336dea20a32 ""
-  "OS_Notes.aux" 1762015424.4095 1415 9a88d5719d0ec30c37042f7f1180a5f3 "pdflatex"
-  "OS_Notes.out" 1762015424.41024 1995 f85af7efe36a520fe44a578b82daa2c5 "pdflatex"
-  "OS_Notes.tex" 1762015423.48992 23654 9cd23b29fa985ce1a5d531daf141b5bb ""
+  "LaTex Images/FCFSScheduling.png" 1762028904.11039 58281 ae385f4624837ec3c9a1620f80025e41 ""
+  "LaTex Images/FIFOReplacement.png" 1762044637.99898 100113 aec4e6fa5e8162780adb70241d687700 ""
+  "LaTex Images/TLBAddressTranslation.png" 1762025964.37317 115225 8ba56fb86bb3d3408ddef9fc16fc0684 ""
+  "OS_Notes.aux" 1762046111.17198 1561 53eeb5f94de58cd1377f9b05c0300c86 "pdflatex"
+  "OS_Notes.out" 1762046111.17275 2220 c32aed07543977a2884cbde7061eb5df "pdflatex"
+  "OS_Notes.tex" 1762046109.57873 35703 d35a904fcda942230c246f67c1bde8d5 ""
   (generated)
   "OS_Notes.aux"
   "OS_Notes.log"

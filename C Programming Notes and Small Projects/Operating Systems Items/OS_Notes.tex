@@ -297,6 +297,45 @@ Timestamp: 5:19
 
 Timestamp: 11:38
 
+{\bf First-In First-Out (FIFO).} {In this algorithm we would maintain a list of pages in chronological order, and on replacement we would evict the oldest page in the queue.}
+    \begin{enumerate}
+        \item[]{\bf Pros.} {Maybe the oldest page is not being used. This queue is possible to implement in real life, and it is easy to do so.}
+        \item[]{\bf Cons.} {No information about a page except its age in memory. This algorithm also suffers from Belady's Anomaly. The fault rate might actually increase when the algorithm is given more memory.} 
+    \end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{FIFOReplacement} 
+\end{figure}
+\vspace{4em}
+{\bf Belady's Anomaly.} {It is when the fault rate may increase when an algorithm is given more memory.}
+    \begin{enumerate}
+        \item[]{\bf The 2 Conditions for a Belady's Anomaly.}
+        \begin{enumerate}
+            \item[1]{When the larger memory contains at least 1 page that is also in the smaller memory.}
+            \item[2]{When the smaller memory contains at least 1 page that is not in the larger memory.} 
+        \end{enumerate}
+    \end{enumerate}
+
+{\bf Page Fault.} {When a page is not in memory. A page fault can signal a page replacement algorithm.}
+
+{\bf Least Recently Used (LRU)} {The idea is that we can't predict the future, but we can guess based on passed experience. We evict the least recently used page.}
+    \begin{enumerate}
+        \item[]{\bf Pros.} {Any program with high temporal locality will work well with this algorithm. Eg. code pages or stack pages are used more frequently}
+        \item[]{\bf Cons.} {A program with poor temporal locality will not work well with this algorithm. Eg. A program w/ repeated sequential array access larger than avaialable memory. Also this is not easy to implement in reality.}
+    \end{enumerate}
+
+{\bf Temporal Locality.} {This refers to the same page/address being accessed frequently.}
+
+{\bf Implementing Exact LRU} {Exact means if we were to implement this on a real computer.}
+    \begin{enumerate}
+        \item[]{\bf Option 1.} {Have a timestamp so every time we reference the memory, we update the timestamp. We then evict pages with the oldest timestamp, but we'll also have to go through each page in to find one with the oldest timestamp (Problem:O(n)). We'll need to make the page table entry (PTE) large enough to hold a meaningful timestamp. This may double the size of our page tables and TLBs.}
+        \item[]{\bf Option 2.} {}
+    \end{enumerate}
+
+Timestamp: 25:10
+
+
 \newpage
 \section{Lecture 12: Paging and Address Translation {\hrule}} 
 
@@ -336,9 +375,28 @@ Timestamp: 11:38
     \end{enumerate}
 Timestamp: 8:22
 
+\newpage
 \section{Lecture 15/16: Advanced VM Functionalities {\hrule}} 
 \vspace{-1.5em}
 
+{\bf Simplified 2Q Algorithm (S2Q).} {This is an algorithm that combines recency and frequency to combat scanning patterns of an array. This is a type of scan-resistant algorithm to get rid of one-time use pages quickly from our main memory.}
+    \begin{enumerate}
+        \item[]{\bf What do we do each time a page is accesed?} {Every time we reference a page, if the page is already in queue, we promote the page. If the page is not in queue, we add it to the A1 queue. If we see a page again, we move it to the most recently used position of the AMQueue, so it gets evicted last (lowest priority to get evicted).}
+        \begin{enumerate}
+            \item[]{\bf A1Queue.} {When we have seen the page for the first time, we put in this queue. Pages in this queue can be evicted, so sometimes we put pages that have already been seen, but are already evicted in this queue.} 
+            \item[]{\bf AMQueue.} {This is the main queue. This main queue is an RUQueue where we keep most of the pages that are multi-use. Eg. stack pages or code pages}
+        \end{enumerate}
+        \item[]{\bf What do we do when we want to evict a page?} The basic idea is that if the size of A1Queue is over a particular threshhold that we set, then we evict the oldest page from A1Queue. If the A1Queue is below the threshold, we kick out the least recently used page from AMQueue. 
+        \begin{enumerate}
+            \item[]{\bf Note.} {In A3, the threshhold is the size of the memory divided by 10 rounded down.}
+        \end{enumerate}
+        \item[]{\bf Note.} {This algorithm is not practical for implementation because you're removing or inserting from a queue on every single reference. The reason why clock2Q algorithm is possible/practical is because we just have to update one reference bit on every single memory reference, and this is done by the hardware.}
+        \item[]{\bf Note.} {The head for A1Queue is oldest page. The head for AMQueue is most recently used page.}
+    \end{enumerate}
+
+Timestamp: 19:47
+
+\newpage
 \section{Lecture 11: Memory Management {\hrule}} 
 \vspace{-1.5em}
 
@@ -374,8 +432,105 @@ Timestamp: 9:18
     \end{enumerate}
 Timestamp: 5:05 
 
+{\bf Scheduling Building Blocks}
+    \begin{enumerate}
+        \item[]{\bf Target.} {Kernel-level threads.}
+        \item[]{\bf Mechanisms.} {The mechanisms behind sheduling involves the OS trackings various threads by using thread states and thread queues. Eg. Ready queue, block queue, running/execute queue.}  
+        \item[]{\bf Policies.} {When we are talking about scheduling, we're talking about the policies of CPU virtualization––which thread to run next and when?} 
+        \item[]{\bf Metrics.} {We need metrics to evaluate the effectivness of the scheduler and scheduling algorithms that we choose.}
+        \begin{enumerate}
+            \item[1] {\bf Performance.} {We look at CPU utlization, where we make sure that the CPU is kept busy when there's work to be done. We also look at throughput, where we want to maximize tasks completed per unit time.} 
+            \item[2] {\bf Fairness.} {Ensure that each thread gets a reasonable share of the CPU time, preventing starvation.} 
+        \end{enumerate}
+    \end{enumerate}
+
+{\bf A Simple Policy.} {Assume that tasks run to completion when they are first scheduled, meaning we never context switch unless they perform a blocking call. Once a thread is done, they make the exit() system call.}
+    \begin{enumerate}
+        \item[]{\bf Goal.} {Minimize average wait time.}
+        \item[]{\bf Arrival Time.} {When a thread becomes ready to run.}
+        \item[]{\bf Service Time.} {The amount of time required to run a thread to completion.}
+        \item[]{\bf Wait Time.} {The time between a thread's arrival and being scheduled.}
+        \item[]{\bf Turnaround Time.} {The time between a threads arrival and completion–– Wait Time + Service Time = Turnaround Time.}  
+    \end{enumerate}
+
+{\bf First Come First Served (FCFS)} {Schedules the first thread that's in the wait queue. Uses a first in first out (FIFO) queue.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{FCFSScheduling} 
+\end{figure}
+\vspace{1em}
+    \begin{enumerate}
+        \item[]{\bf Non-Preemptive.} {Once a task is scheduled in the CPU, it's going to complete with no interruption.}
+        \item[]{\bf Con.} {The average wait time w/ FCFS is often quite long due to the convoy effect. Not great if you have a lot of short tasks and 1 big task paired together. If there's a {\bf big variability} in the service time for each task, then this algorithm is pretty bad to use.} 
+        \item[]{\bf When to use?.} {When there's not a lot of variability in the service time for each task.} 
+    \end{enumerate}
+
+{\bf Shortest Job First {SJF}} {The next thread that is scheduled to run is the thread with the shortest service time.}
+
+{\bf Convoy Effect.} {It's when all other tasks wait for the one "big" task to release the CPU.}
+
+Timestamp: 19:22
+
+\newpage
 \section{Lecture 13/14: Translation Lookaside Buffer (TLB) {\hrule}} 
 \vspace{-1.5em}
+
+{\bf Segmented Paging.} {The idea that each region of the address space has its own page table.}
+    \begin{enumerate}
+        \item[]{\bf Eg.} {The code region has its own page table, the stack has its own page table.}
+        \item[]{\bf The CONS of segmented paging.}
+        \begin{enumerate}
+            \item[1]{\bf Page Table Waste.} {Number of valid page table entries can change over time. Eg. sbrk() allows you to adjust the size of the heap, later on we can choose to do a negative sbrk(), shrinking the size of the heap. Eg. We can have a large but sparse heap.} 
+            \item[2]{\bf Inflexible.} {The number of regions we can have is limited by the hardware.} 
+            \item[3]{\bf Hardware.} {We will need multiple page tables: stackPT, heapPT, dataPT, and code PT. For each region, the hardware will need to use two registers: base and limit. The limit register is used to tell us how big the segment is. Issue: we don't knowhow many regions are in a process. The hardware needed for segmented paging does not exist on any modern CPUs.} 
+            \item[4]{\bf External Fragmentation.} {Each page table must be contiguous is some sort of memory (kernel virtual memory or physical memory), but with segmented paging, finding free space for page tables in memory is difficult––difficult to do compaction in the kernel/physical address space.}
+        \end{enumerate}
+        \item[]{\bf Note.} {We should avoid using contiguous allocations for page tables to avoid dealing with external fragmentation. Therefore segmented paging is a BAD IDEA.}
+    \end{enumerate}
+
+{\bf Sparse Heap Page Table.} {A heap page table with a lot of invalid page table entries, resulting in page table waste.}
+
+{\bf Hierarchical Page Table.} {Based on the idea of adding multiple levels of indirection, which is based on the intuition that we don't want to allocate memory for parts of the page table that's not in use.}
+
+Timestamp: 6:33
+
+\newpage
+\section{Lecture 14: Paged Virtual Memory {\hrule}} 
+\vspace{-1.5em}
+
+{\bf Translation Lookaside Buffer (TLB).} {The input to the TLB is the VPN, and the output is the PFN. This is assuming that the valid bit is set in the PTE and that the operation (R/W) is permitted.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {The TLB will return an error if we try to write to a page that is set to read only.}
+        \item[]{\bf Note 2.} {Because the TLB is very small we have to use it effectively, and so we need to do address translations most of the time––get more hits. Doing translations with a page table is much slower than doing it in the TLB. Eg. w/ a 4-level page table, we need 5 memory accesses, and if each memory access is 100 machine cycles, thats 500 machine cycles compared to 1 machine cycle.} 
+    \end{enumerate}
+
+{\bf Address Translation w/ TLB.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{TLBAddressTranslation} 
+  % \caption{An example image}
+  % \label{fig:example}
+\end{figure}
+    \begin{enumerate}
+        \item[]{\bf Processing Logic.} {Contains the arithmetic logic unit (ALU) to perform the fetch, decode, execute cycle.}
+        \item[]{\bf Registers.} {Contains the page directory base register (PDBR). The PDBR stores a pointer to the page directory that we need to find the page table in memory.} 
+        \item[]{\bf MMU.} {Contains the TLB. The TLB will look up the VPN (0xA11 in this example) in all the TLB entries in parallel. The TLB will then use the frame number stored in the 0xA11 VPN TLB entry. In the diagram, since X = 0, if we try to execute an instruction located at the virtual address, a protection fault will occur.}
+        \item[]{\bf What happens when we get a TLB miss?} {We use the PDBR to find the page table and then walk the page table to find the page table entry (PTE). After finding the PTE we would update the TLB with a new entry.}  
+    \end{enumerate}
+
+{\bf Principle of Locality (Locaility of Reference).} {We get TLB hits most of the time because of this principle. When we look at addresses that are referenced by a process in execution, it turns out only a handful of pages are used at one time, and we only need to have fast translations for the pages that the running process is currently using.}
+    \begin{enumerate}
+        \item[]{\bf Hits.} {Typically >99\% of translations are hits.}
+        \item[]{\bf Misses.} {When we miss a translation it's called a {\bf TLB miss} or {\bf TLB fault}.} 
+    \end{enumerate}
+
+{\bf There are 2 ways to handle TLB misses.}
+    \begin{enumerate}
+        \item[1]{}
+        \item[2]{} 
+    \end{enumerate}
+
+Timestamp 6:37
 
 \newpage
 \section{Lecture 8: Concurrency Bugs {\hrule}} 
