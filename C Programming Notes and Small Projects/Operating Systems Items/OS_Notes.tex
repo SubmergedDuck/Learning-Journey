@@ -365,6 +365,35 @@ Timestamp: 25:10
 \vspace{9em}
 Timestamp: 35:34/48:15
 
+{\bf Approximating LRU.} {Since exact LRU is too expensive to implement, we'll have to try something else. We make use of the PTE reference bit (R bit) instead. All R bits are initially 0, and as the processes executes, the R bit is set to 1 for pages that are accessed.}
+    \begin{enumerate}
+        \item[]{\bf Problem.} {We now lose the information of the exact order of references, which is bad if eviction happens infrequently (ends up degrading to FIFO). Let's say before eviction, we've accessed a lot of pages, and all of their reference bits have been set to 1, so we're basically ending up with a random eviction. }
+        \item[]{\bf Possible Solutions to the Problem.} {We try to have a period/timer where we can set all reference bits to 0, or, we can have a larger amount of reference bits (Eg. instead of just 1 bit, we can use 4/5 bits).} 
+    \end{enumerate}
+
+{\bf Second Chance Algorithm.} {Same as FIFO, except we look at the reference bit for the page we're about to evict. If the R bit is 0, we replace the page, if the R bit is 1, we clear the R bit and re-queue the page as youngest––then we try finding a page again to evict. The idea is that pages that are used often enough to keep reference bits set will not be replaced.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {The second chance algorithm can be implemented in practice because the FIFOQueue is easy to implement. *In worst case scenario, this algorithm degrades to FIFO.}
+        \item[]{\bf Not Recently Used (NRU) Algorithm.} {We can combine the reference bit with the modify bit to create 4 classes of pages (Eg. prefer clean pages). This variant is called the not recently used algorithm.}
+    \end{enumerate}
+
+{\bf Clock Algorithm.} {A practical implementation of the LRU algorithm. The idea is to replace a page that is "old enough" by arranging the physical frames in a circular list. Then you use a clockHandle (a cursor) to go through the circular list. As you go through each page, if the reference bit is off, then we evict the page. If the reference bit is on, then we turn the reference bit off, and check the next page.}
+    \begin{enumerate}
+        \item[]{\bf Cons.} {When the memory is large, the accuracy of the information degrades because we're not looking at the reference bits enough. *In worst case scenario, this algorithm degrades to FIFO.}
+        \item[]{\bf What's the minimum age of a page if R bit is off?} {It would be the size of the clock/queue?} 
+    \end{enumerate}
+
+{\bf Recency-Based PR Policy.} {Replacement policies based on recency: Eg. Clock, Second-Chance, LRU.}
+    
+{\bf Frequency-Based PR Policy.} {Also known as counting-based page replacement policies. The idea is that we will count the number of uses for each page.}
+    \begin{enumerate}
+        \item[]{\bf Pros.} {An easy algorithm to implement, making it more likely to have available hardware support.}
+        \item[1]{\bf Least-Frequently-Used (LFU).} {We replace the page that's used least often. *Problem: pages that are heavily used at one time tend to stick around even when not needed anymore.}
+        \item[2]{\bf Most-Frequently-Used (MFU).} {We evict a page that's accessed a maximum number of times. *Problem: favours new pages.}
+        \item[]{\bf Note.} {Neither of these 2 algorithms are common as they are poor approximations of Belady's/Optimal cause they don't respect temporal locality.}  
+    \end{enumerate}
+
+{\bf Scan-Resistant Algorithms.} {The idea is that we combine recency and frequency so that single-use pages can be replaced quickly (Eg. LRU/k, 2Q, ARC, LIRS, S2Q).}
 
 \newpage
 \section{Lecture 12: Paging and Address Translation {\hrule}} 
@@ -398,12 +427,33 @@ Timestamp: 35:34/48:15
         \begin{enumerate}
             \item[1]{\bf Base.} {When we restore registers for the next process, we load the {\bf base} register with the starting address of the physical address of that process.}
             \item[2]{\bf Limit.} {Limit register is set to the last logical (virtual) address of that process. Purpose is to cap what range of physical addresses are valid.}
-            \item[3]{\bf Load/Store.} {When we execute any memory reference instruction like load and store, the hardware will add the base address to the logical address... tbc} 
+            \item[3]{\bf Load/Store.} {When we execute any memory reference instruction like load and store, the hardware will add the base address to the logical address and we would compare that against the limit address. If the physical address ends up being smaller than the base or it goes past the limit, then we trap into the kernel for illegal address exception.} 
+            \item[]{} 
+                \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+if (addr < base || addr >= (base + limit)){
+// Trap: Illegal Address Exception (*how segfault works)
+}
+                \end{lstlisting}
         \end{enumerate}
         \item[]{\bf Kernel-Level Context Switch.} {When we switch from one process to another.} 
         \item[]{\bf Logical Address.} {It's the same thing as a virtual address.} 
     \end{enumerate}
 Timestamp: 8:22
+
+{\bf Problems w/ Partitioning.} {Fixed partitioning can cause internal fragmentation and need for overlays. Dynamic partitioning can cause external fragmentation and problems managing available space.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {Partitioning in general is not used in any modern systems––the common problems is because processes must be allocated to contiguous blocks of physical memory. That's why we use paging instead of partitioning.}
+    \end{enumerate}
+
+{\bf Paging.} {This method eliminates external fragmentation because we will never have a situation where there is an unused hole in physical memory that we can allocate to a process as contiguouity is no longer required. Internal fragmentation is still an issue, but not that bad because its reduced to at most a fraction of one page per memory region that you have.  }
+    \begin{enumerate}
+        \item[1]{}{First, we logically partition physical memory into equal, fixed-size chuncks (eg. 4KB). Each of these chuncks are called {\bf page frames.} The size of each frame is called a {\bf page size}.}
+        \item[2]{}{We then divide up a process' virtual address space into chunks of the same size as a physical frame.} 
+    \end{enumerate}
+
+{\bf Random Access Memory (RAM).} {It doesn't matter which address you're accessing, the speed of accessing the address will always be the same.}
+
+Timestamp: 23:40
 
 \newpage
 \section{Lecture 15/16: Advanced VM Functionalities {\hrule}} 
@@ -424,7 +474,7 @@ Timestamp: 8:22
         \item[]{\bf Note.} {The head for A1Queue is oldest page. The head for AMQueue is most recently used page.}
     \end{enumerate}
 
-Timestamp: 19:47
+Timestamp: 19:47 / 1:42:11
 
 \newpage
 \section{Lecture 11: Memory Management {\hrule}} 
@@ -467,7 +517,7 @@ Timestamp: 9:18
 
 {\bf Absolute Code.} {If we use absolute code, we can't run more than one instance of a program because a program will overwrite main memory. (Eg. can't run more than 1 calculator program in your desktop at a time.) You can load in multiple different programs though.}
 
-Timestamp 25:11
+Timestamp 25:11 / 1:04:54
 
 \newpage
 \section{Lecture 9: Scheduling {\hrule}} 
@@ -671,7 +721,62 @@ Timestamp: 17:03
 \section{Lecture 8: Deadlock {\hrule}} 
 \vspace{-1.5em}
 
+{\bf Deadlock Prevention.} {The main idea for dealing with deadlock is to break on of the four conditions to avoid deadlock.}
+    \begin{enumerate}
+        \item[]{\bf The 4 Conditions.} {Mutual exclusion, hold and wait, no pre-emption, and circular wait.}
+        \item[1]{\bf Breaking Mutual Exclusion.} {We can break mutex with something called lock-free data structures. (Eg. Use hardware atomic Compare-And-Swap instruction.)} 
+        \item[2]{\bf Breaking Hold and Wait.} {} 
+    \end{enumerate}
 
+{\bf Breaking Mutex: Compare-And-Swap (CAS).} {Use CAS instead of locks to break mutex. If you need more than 1 address to update a value to, then a lock-free data structure is not possible.}
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+    int CAS(int *address, int expected, int new);
+
+    // Blocking Atomic Add
+    void AtomicAdd(int *val, int a){
+        lock(L);
+        *val += a;
+        unlock(L);
+    }
+
+    // Non-blocking Atomic Add
+    // If the address val, still contains the old value, then CAS will return true.
+    void AtomicAdd(int *val, int a){
+        do {
+            int old = *val;
+        } while (CAS(val, old, old + a) == 0);
+    }
+    \end{lstlisting}
+
+
+{\bf Breaking Block and Wait.} {Hold and Wait policy tries to gather all needed resource at the same time, which can lead to long delays especially if one or more resources are not readily avaialble––leading to threads stalling, and the wait time to make any progress in the critical section can increase dramatically.}
+    \begin{enumerate}
+        \item[1]{\bf Another Problem: Locked Resources.} {We're forced to lock all resources at the beginning, before the resource is actually needed, limiting concurrency, and resulting in blocking many other threads.}
+        \item[2]{\bf Another Problem: Resource Requirements.} {We may not know all the resource requirements in advanced.}
+    \end{enumerate}
+
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+    // How we can break hold and wait?
+    
+    Record reci = get_record(db, pki) // Gets a database record
+    reci.lock(); // Lock resource pki 
+
+    int i = get_value(reci, "i", int); // Gets shared int
+
+    // If int < 0, grab resource B (pkb), else grab A (pka)
+    Record recx = get_record(db, i<0 ? pkb : pka);
+    recx.lock(); // Lock resource either pkb or pka
+
+
+    int x = get_value(recx, "cost", int);
+    inc_value(recx, "views"); // Increment view of x
+    recx.unlock();
+    set_value(reci, "i", i + x); // Increment cost x by i
+    reci.unlock(); 
+
+    \end{lstlisting}
+
+Timestamp: 17:19
 
 \end{document}
 
