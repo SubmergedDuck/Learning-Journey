@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1762193549.37307 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1762193550.69388 0
-  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1762193549.12754 51268 21880415acb338a7b5c4e5d24534913c ""
+["pdflatex"] 1762284488.1084 "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" "OS_Notes.pdf" "OS_Notes" 1762284489.35226 0
+  "/Users/submergedduck/Desktop/Programming Learning Journey/C Programming Notes and Small Projects/Operating Systems Items/OS_Notes.tex" 1762284487.91149 61516 34529db975f3e733e56df737f17a542a ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1741388039 2971 def0b6c1f0b107b3b936def894055589 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/step/a_euweyh.enc" 1741388039 2876 75b43bf7e4abc99875d81296a54eb916 ""
   "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/fontname/texfonts.map" 1741388039 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -192,11 +192,12 @@
   "LaTex Images/BeladysAlgorithm.png" 1762014911.89048 59228 2aa4018bf31aeb3c6f65d336dea20a32 ""
   "LaTex Images/FCFSScheduling.png" 1762028904.11039 58281 ae385f4624837ec3c9a1620f80025e41 ""
   "LaTex Images/FIFOReplacement.png" 1762044637.99898 100113 aec4e6fa5e8162780adb70241d687700 ""
+  "LaTex Images/Inteli7AddressTrans.png" 1762282738.20266 66677 1f46c886f1c365d7cb6cfe6168b37a86 ""
   "LaTex Images/Looping-SequentialWorkload.png" 1762123308.68313 49858 662252c1cc1c82319d43c00c5a7c2d29 ""
   "LaTex Images/TLBAddressTranslation.png" 1762025964.37317 115225 8ba56fb86bb3d3408ddef9fc16fc0684 ""
-  "OS_Notes.aux" 1762193550.57731 2112 373d5364638779c3e3f3ea482bd7ef8b "pdflatex"
-  "OS_Notes.out" 1762193550.57932 2599 8990eeebb1d7a48cf5146a725c336cde "pdflatex"
-  "OS_Notes.tex" 1762193549.12754 51268 21880415acb338a7b5c4e5d24534913c ""
+  "OS_Notes.aux" 1762284489.24517 2112 a020373e5ce8e98b4aebc9a3ac10c743 "pdflatex"
+  "OS_Notes.out" 1762284489.24607 2599 8990eeebb1d7a48cf5146a725c336cde "pdflatex"
+  "OS_Notes.tex" 1762284487.91149 61516 34529db975f3e733e56df737f17a542a ""
   (generated)
   "OS_Notes.aux"
   "OS_Notes.log"

@@ -589,8 +589,19 @@ Timestamp: 19:22
 {\bf Sparse Heap Page Table.} {A heap page table with a lot of invalid page table entries, resulting in page table waste.}
 
 {\bf Hierarchical Page Table.} {Based on the idea of adding multiple levels of indirection, which is based on the intuition that we don't want to allocate memory for parts of the page table that's not in use.}
+    \begin{enumerate}
+        \item[]{\bf Note.} {Also known as a multi-level page table, and is where the virtual address is broken into N + 1 pieces. The page frame is located at the bottom level page table. }
+        \item[]{\bf Two Level Page Table.}
+        \begin{enumerate}
+            \item[]{\bf Page Directory Base Register (PDBR).} {Points to the the address where the page directory, or the top level page table is located.}
+            \item[]{\bf Page Directory.} {The top level page table containing pagetables. Each page table in the page directory points to a secondary page table, or a bottom page table.}
+            \item[]{\bf Page Directory Index.} {The address of a page table in a page directory.}
+            \item[]{\bf Secondary Page Table.} {The bottom level page table of a two level page table.} 
+            \item[]{\bf Page Table Index.} {The address of a page frame in the secondary page table.}
+        \end{enumerate}
+    \end{enumerate}
 
-Timestamp: 6:33
+Timestamp: 30:31
 
 \newpage
 \section{Lecture 14: Paged Virtual Memory {\hrule}} 
@@ -622,13 +633,68 @@ Timestamp: 6:33
         \item[]{\bf Misses.} {When we miss a translation it's called a {\bf TLB miss} or {\bf TLB fault}.} 
     \end{enumerate}
 
-{\bf There are 2 ways to handle TLB misses.}
+{\bf There are 2 ways to handle TLB misses.} {Who is responsible for loading the missing translation into the TLB?}
     \begin{enumerate}
-        \item[1]{}
-        \item[2]{} 
+        \item[1]{\bf Hardware Loaded.} {In this scenario the MMU (Eg. Intel Pentium) is able to look up the page table in memory, find the entry that's requested, and load the entry into the TLB. Because the hardware needs to access the page table for the current running process, the OS has to settup the PTBR when swtiching to a new process. The OS is also responsible for building and maintaining page tables in memory. The CPU will read in the page table and perform TLB faults.}
+        \begin{enumerate}
+            \item[]{\bf Note.} {Hardware reads the page table, but doesn't write to the page table. We only write to the page table as an OS.}
+        \end{enumerate}
+        \item[2]{\bf Software Loaded.} {Gives us more flexibility because the OS gets to decide the page table format and the PTE format. When there's a TLB miss, we fault into the OS––the exception handler is responsible for looking up the page table to find the appropriate translation to load into the TLB.}
+        \begin{enumerate}
+            \item[]{\bf Note.} {The software/OS is both reading and writing to the page table.}
+        \end{enumerate}
+        \item[]{\bf Note.} {Software loaded TLB is much slower than hardware loaded TLB.}
+        \item[]{\bf OS.} {Responsible for creating page tables.}  
     \end{enumerate}
 
 Timestamp 6:37
+
+{\bf Managing TLBs.} {*A context switch is 500x more expensive.}
+    \begin{enumerate}
+        \item[1]{\bf OS.} {OS ensures that TLB and page tables are consistent. When OS changes the protection bits of a PTE, it needs to update the copy of the PTE in the TLB (if it exists).}
+        \item[2]{\bf Context Switch.} {We reload the TLB on a process context switch, invalidating all entries––this make context switches expensive (cause there's going to be a bunch of TLB misses at the beginning).}
+        \item[3]{\bf Cached PTE Eviction.} {When a TLB misses and a new PTE must be loaded, a cached PTE likely needs to be evicted. Choosing which PTE to evict is called the TLB replacement policy. Implementing in hardware for hardware-loaded TLB is often simple.}   
+    \end{enumerate}
+
+{\bf Intel Core i7 Address Translation.} 
+    \begin{enumerate}
+        \item[1] {} {Look up page table and check the TLB for a matching entry at the same time. If we have a TLB hit, then we cancel page table lookup. }
+        \item[]{\bf Note.} {Looks like Intel Core i7 uses a 4-level page table.} 
+    \end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{Inteli7AddressTrans} 
+  % \caption{An example image}
+  % \label{fig:example}
+\end{figure}
+\vspace{10em}
+
+{\bf Paged Virtual Memory.} {The idea of implementing paging. The OS uses main memory as a page cache of all data allocated in the system.}
+    \begin{enumerate}
+        \item[1]{Initially, pages are allocated from memory. When memory fills up, allocating a page in memory requires some other page to be evicted from memory.}
+        \item[2]{Evicted pages go to the {\bf swap} space. Swap is a location on disk.} 
+        \item[3]{OS keeps track of use of each physical frame with a {\bf coremap} data structure.} 
+    \end{enumerate}
+
+{\bf Swapping.} {The action of moving the contents of a page into disk.}
+
+{\bf Page Fault.} {This happens when the page being accessed is invalid (PTE is invalid). A {\bf page fault handler} deals with page faults and tries to make pages valid.}
+    \begin{enumerate}
+        \item[1]{\bf Minor Page Fault.} {Happens when disk access is not needed. Eg. first access to a new stack or heap page.}
+        \item[2]{\bf Major Page Fault.} {Happens when disk access is needed. Eg. First access to a code or data region, access to evicted pages (remember that evicted pages go to swap)} 
+        \item[]{\bf Note.} {Page fault only happens when both the page table and the TLB are invalid for that address translation (TLB and PTE both have a valid/invalid bit).} 
+    \end{enumerate}
+
+{\bf Eviction.} {When OS runs out of memory, we need to evict something. A victim fram ei chosen from the {\bf coremape}. The PTE of the page mapped to the frame is set to invalid, if the PTE is cached in TLB, we must also invalidate the TLB entry. The {\bf swap location} of the page is then *stored in the PTE.}
+    \begin{enumerate}
+        \item[]{\bf What happens when a process accesses a page that's been evicted?} {The invalid PTE will cause a page fault (trap), the trap will run the OS page fault handler, the handler uses the invalid PTE to locate page in swap (on disk). The page is then read into a physical frame, and the PTE is update to point to the page. The process finally resumes.}
+        \item[]{\bf Note.} {The page fault is generated by the CPU.}
+    \end{enumerate}
+
+Timestamp: 33:57
+
+{\bf Locality}
 
 \newpage
 \section{Lecture 8: Concurrency Bugs {\hrule}} 
@@ -725,7 +791,9 @@ Timestamp: 17:03
     \begin{enumerate}
         \item[]{\bf The 4 Conditions.} {Mutual exclusion, hold and wait, no pre-emption, and circular wait.}
         \item[1]{\bf Breaking Mutual Exclusion.} {We can break mutex with something called lock-free data structures. (Eg. Use hardware atomic Compare-And-Swap instruction.)} 
-        \item[2]{\bf Breaking Hold and Wait.} {} 
+        \item[2]{\bf Breaking Hold and Wait.} {We can possibly break hold and wait by locking resources or using the trylock() function.} 
+        \item[3]{\bf No Pre-emption.} {We can only break pre-emption if a resource has a rollback state, such as the CPU as you can save context, otherwise it's not feasible to break no pre-emption.}
+        \item[4]{\bf Circular Wait.} 
     \end{enumerate}
 
 {\bf Breaking Mutex: Compare-And-Swap (CAS).} {Use CAS instead of locks to break mutex. If you need more than 1 address to update a value to, then a lock-free data structure is not possible.}
@@ -753,6 +821,7 @@ Timestamp: 17:03
     \begin{enumerate}
         \item[1]{\bf Another Problem: Locked Resources.} {We're forced to lock all resources at the beginning, before the resource is actually needed, limiting concurrency, and resulting in blocking many other threads.}
         \item[2]{\bf Another Problem: Resource Requirements.} {We may not know all the resource requirements in advanced.}
+        \item[3]{\bf Alternative.} {Some thread libraries offer a trylock() function––you grab a lock if it's avaialable, else we try again later. Deadlock is avoided. Problem: We could have a possible livelock. } 
     \end{enumerate}
 
     \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
@@ -773,10 +842,103 @@ Timestamp: 17:03
     recx.unlock();
     set_value(reci, "i", i + x); // Increment cost x by i
     reci.unlock(); 
+    \end{lstlisting}
 
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+    // Trylock() Function
+    // We will keep trying until we have both locks ready at the same time.
+    // Deadlock avoided.
+
+    ready = false;
+    while (!ready){
+        lock(L1);
+        if (trylock(L2) == -1) // If L2 is available
+            unlock(L1);
+        else{
+            ready = true;
+        }
+    }
     \end{lstlisting}
 
 Timestamp: 17:19
 
+{\bf Livelock.} {A case where all of the threads are not blocked, but at the same time, no progress is being made. }
+    \begin{enumerate}
+        \item[]{\bf Eg. Trylock().} {In a trylock() threads can get stuck waiting to be ready/acquire multiple locks at the same time.}
+        \item[]{\bf Solution.} {Using something called exponential backlog, where each time we want to try acquiring the lock again, we wait for a longer period of time to try again.} 
+    \end{enumerate}
+
+{\bf Breaking No Pre-emption.} {No pre-emption means we're force-taking resources from a thread. The main idea is that taking away a resource from another thread is only safe when we can rollback a resource to a previous/saved state.}
+    \begin{enumerate}
+        \item[]{\bf When is it safe to take a resource away from a thread?} {It depends on the resource. We can take away the CPU, but not a data structure like linked list. The CPU is safe because we save the context when we take the CPU.}
+        \item[]{\bf Note.} {Breaking pre-emption isn't really feasible, or it's too compelx to achieve.} 
+    \end{enumerate}
+
+{\bf Breaking Circular Wait.} {To break circular wait, we assign a {\bf linear ordering} to resource types and require that a thread holding a resource of one type, R, can only request resources that follow R in the ordering.}
+    \begin{enumerate}
+        \item[]{\bf Lock Ordering Eg.} {Must lock $R_1$ before $R_2$ before $R_3$.}
+    \end{enumerate}
+
+{\bf Dining Philosophers Problems.} {You have a round table of philosophers, there's only 1 chopstick on each side of a philosopher, and to eat they need 2 chopsticks.}
+
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+    // Let each philosopher be a thread
+    
+    void philosopher(int pid)
+    {
+        int left = pid;
+        int right = (pid + 1) % N;
+
+        while (true){
+            think();
+            lockAcquire(chopsticks[left]);
+            lockAcquire(chopsticks[right]);
+
+            eat();
+
+            lockRelease(chopsticks[right]);
+            lockRelease(chopsticks[left]);
+        }
+    }
+
+    // Would this result in a deadlock? Yes it would.
+    // Why?: Because each philosopher is able to acquire locks to chopsticks on their left. If there's 5 chopsticks, and 5 philosophers, and each philosopher already acquire 1 chopstick, then no philosopher can make progress eating as they can't acquire the chopstick on the right.  
+    \end{lstlisting}
+
+{\bf Lock Ordering: Dining Philosophers.} {A solution to prevent deadlock by preventing circular wait.}
+
+    \begin{lstlisting}[language=C, numbers=left, basicstyle=\ttfamily]
+    struct lock *chopsticks[N];
+    void philosopher(int pid){
+        int left = pid;
+        int right = (pid + 1) % N; // The "circular part"
+
+        // Breaking Circular Wait: Lock Ordering // 
+        vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+        // If left < right, take the left chopstick, else take right.
+        int first = (left < right) ? left : right; // L1
+
+        // If left < right, take right chopstick, else take left.
+        int second = (left < right) ? right : left; // L2
+        
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        // Breaking Circular Wait: Lock Ordering // 
+
+        while (true){
+            think();
+            lockAcquire(chopsticks[first]);
+            lockAcquire(chopsticks[second]);
+
+            eat();
+
+            lockRelease(chopsticks[second]);
+            lockRelease(chopsticks[first]);
+        }
+    }
+    
+    \end{lstlisting}
+
+Timestamp: 33:41
 \end{document}
 
